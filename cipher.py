@@ -24,7 +24,7 @@ def random_key(size: int) -> bytes:
     return os.urandom(size)
 
 
-def one_time_pad(message: bytes, key: bytes) -> bytes:
+def one_time_pad(message: bytes | str, key: bytes | str) -> bytes:
     """
     One-time pad encoding of text using xor operation.
     Accepts bytes or strings (assumes utf-8 encoding).
