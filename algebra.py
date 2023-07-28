@@ -4,22 +4,18 @@ Basic algebraic algorithms
 
 import math
 
-# TODO
-# prime sieve
-# extended eucl algo
-
 
 def sieve_of_eratosthenes(N: int) -> list:
     """
     Returns list of primes < N.
-    Basic implementation using standard library only.
+    Basic implementation using only standard library.
     """
     is_prime = [1] * N
     is_prime[0] = 0
     is_prime[1] = 0
     for j in range(4, N, 2):
         is_prime[j] = 0
-    for i in range(3, int(math.isqrt(N)) + 1, 2):
+    for i in range(3, math.isqrt(N) + 1, 2):
         if is_prime[i]:
             for j in range(i * i, N, 2 * i):
                 is_prime[j] = 0

@@ -2,11 +2,16 @@
 
 Various algorithms and calculations implemented in Python.
 
+The pathfinding module uses [Numpy](https://numpy.org/). Everything else only relies on the standard libraary.
+
 ## Contents
 
 ### Pathfinding
+*(Incomplete)*
 
-**TODO**
+- Depth first search
+- Dijkstra's algorithm
+- Travelling Salesman Problem (TSP)
 
 ### Algebra
 
