@@ -1,33 +1,8 @@
+import time
+
 import numpy as np
 
-
-def random_distances(size: int, seed: int) -> np.ndarray:
-    """
-    Generates pseudo-random distances for an undirected graph of chosen size.
-    """
-
-    # generate paths
-    nums = []
-    for _ in range(4 * size):
-        seed = (445 * seed + 700001) % 2097152
-        nums.append(seed)
-
-    for i in range(4 * size):
-        nums[i] = nums[i] % size + 1
-
-    distances = np.zeros((size, size), int) + np.inf
-
-    # populate distance matrix (using 0 to n-1 for nodes instead of 1 to n)
-    for i in range(size):
-        v1, d1, v2, d2 = nums[4 * i : 4 * i + 4]
-        if (v1 - 1) != i and distances[(i, v1 - 1)] == np.inf:
-            distances[(i, v1 - 1)] = d1
-            distances[(v1 - 1, i)] = d1
-        if (v2 - 1) != i and distances[(i, v2 - 1)] == np.inf:
-            distances[(i, v2 - 1)] = d2
-            distances[(v2 - 1, i)] = d2
-
-    return distances
+import pathfinding
 
 
 def edges_to_array(edges: dict[int : dict[int:int]], size: int) -> np.ndarray:
@@ -53,7 +28,10 @@ if __name__ == "__main__":
         5: {2: 30, 3: 77, 0: 29, 6: 90},
         6: {5: 90, 2: 46, 4: 68},
     }
-    print(edges_to_array(edges_small, 7))
+    distances = edges_to_array(edges_small, 7)
+    start = time.perf_counter()
+    print(pathfinding.tsp(distances, 0))
+    print(time.perf_counter() - start, "seconds")
     edges_large = {
         0: {11: 50, 1: 68, 3: 24, 7: 49, 8: 35, 12: 67, 16: 35},
         1: {0: 68, 10: 99, 12: 67, 11: 34, 2: 30, 3: 14, 4: 52, 7: 90},
@@ -76,3 +54,7 @@ if __name__ == "__main__":
         18: {9: 47, 10: 33, 11: 71, 16: 33, 2: 45, 4: 45, 6: 13},
         19: {16: 23, 14: 77, 8: 53},
     }
+    distances = edges_to_array(edges_large, 20)
+    start2 = time.perf_counter()
+    print(pathfinding.tsp(distances, 0))
+    print(time.perf_counter() - start2, "seconds")
