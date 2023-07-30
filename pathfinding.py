@@ -2,10 +2,6 @@
 Pathfinding algorithms
 """
 
-# TODO
-# Breadth-first
-# A star
-
 import numpy as np
 from itertools import combinations
 
@@ -13,11 +9,46 @@ from itertools import combinations
 LARGE_DIST = 1 << 28  # Number larger than any path lengths.
 
 
+def breadth_first_search(
+    edges: dict[int : set[int]], source: int, sink: int
+) -> list[int]:
+    """
+    Returns a path from source to sink using a breadth-first search.
+    edges is a dictionary of the form {key_node: {all nodes adjacent to key_node}}.
+    source and sink are the nodes to find a path from and to.
+    """
+    seen = [-1] * (max(edges) + 1)
+    unvisited = set(edges.keys())
+    queue = [[source, -1]]
+    path_found = False
+    while queue:
+        node, fromNode = queue.pop(0)
+        if node == sink:
+            seen[sink] = fromNode
+            path_found = True
+            break
+        if node in unvisited:
+            seen[node] = fromNode
+            unvisited.remove(node)
+            neighbours = list(edges[node])
+            neighbours.sort(reverse=True)
+            queue += [[x, node] for x in neighbours]
+
+    if not path_found:
+        return []
+
+    path = [sink]
+    while path[-1] != source:
+        path.append(seen[path[-1]])
+    path.reverse()
+    return path
+
+
 def depth_first_search(
     edges: dict[int : set[int]], source: int, sink: int
 ) -> list[int]:
     """
-    Returns a path from source to sink using a depth first search.
+    Returns a path from source to sink using a depth-first search.
     edges is a dictionary of the form {key_node: {all nodes adjacent to key_node}}.
     source and sink are the nodes to find a path from and to.
     """
@@ -214,6 +245,7 @@ if __name__ == "__main__":
         5: {2, 6},
         6: {3, 4, 5},
     }
+    print(breadth_first_search(connections, 0, 6))
     print(depth_first_search(connections, 0, 6))
 
     distances = np.array(

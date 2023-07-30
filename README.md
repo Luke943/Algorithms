@@ -7,9 +7,9 @@ The pathfinding module uses [Numpy](https://numpy.org/). Everything else only re
 ## Contents
 
 ### Pathfinding
-*(Incomplete)*
 
-- Depth first search
+- Breadth-first search
+- Depth-first search
 - Dijkstra's algorithm
 - Travelling Salesman Problem (TSP)
 
