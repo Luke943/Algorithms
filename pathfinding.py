@@ -2,11 +2,13 @@
 Pathfinding algorithms
 """
 
-import numpy as np
+from collections import deque
 from itertools import combinations
 
+import numpy as np
 
-LARGE_DIST = 1 << 28  # Number larger than any path lengths.
+
+LARGE_DIST = 1 << 30  # Number larger than any path lengths.
 
 
 def breadth_first_search(
@@ -19,10 +21,10 @@ def breadth_first_search(
     """
     seen = [-1] * (max(edges) + 1)
     unvisited = set(edges.keys())
-    queue = [[source, -1]]
+    queue = deque([[source, -1]])
     path_found = False
     while queue:
-        node, fromNode = queue.pop(0)
+        node, fromNode = queue.popleft()
         if node == sink:
             seen[sink] = fromNode
             path_found = True
