@@ -2,7 +2,7 @@
 
 Various algorithms and calculations implemented in Python.
 
-The pathfinding module uses [Numpy](https://numpy.org/). Everything else only relies on the standard libraary.
+The pathfinding module uses [Numpy](https://numpy.org/). Everything else only relies on the standard library.
 
 ## Contents
 

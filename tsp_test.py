@@ -5,7 +5,7 @@ import numpy as np
 import pathfinding
 
 
-def edges_to_array(edges: dict[int : dict[int:int]], size: int) -> np.ndarray:
+def edges_to_array(edges: dict[int : dict[int : int | float]], size: int) -> np.ndarray:
     """
     Convert edges dictionary to distance array.
     """
